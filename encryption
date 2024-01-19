@@ -1,0 +1,237 @@
+// author : Osamah Alhwawi
+
+import java.util.*;
+
+public class encryption {
+	static ArrayList<Character> list;
+	static ArrayList<Character> shuffledlist;
+	static Scanner scr;
+	
+
+
+	public static void start() {
+		scr = new Scanner(System.in);
+		outer:
+			while(true) {
+				System.out.println("Chose Want you want to do"
+						+ "\n------------------------"
+						+ "\ngenerateKey input (g)" 
+						+ "\ngetkey input (k)"  
+						+ "\nsetkey input (s)"
+						+ "\nEncrypt input (e)"
+						+ "\nDecryption input (d)"
+						+ "\nExit input (x)"
+						+ "\n------------------------");
+				char chose = scr.next().toLowerCase().charAt(0);
+				switch(chose) {
+				case 'g' :generateKey(); break;
+				case 'k' : getkey(); break;
+				case 's' : setkey(); break;
+				case 'e' :Encrypt(); break;
+				case 'd' :Decryption(); break;
+				case 'x' :System.out.println("The program whill exit now"); try {
+						Thread.sleep(1500);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} System.exit(0);
+				default : System.out.println("invalid input"); break;
+				}
+			}
+
+
+	}
+
+	private static void generateKey() {
+		list =  new ArrayList();
+		list.clear();
+		for(int i = 32; i<127; i++) {
+			list.add((char) i);
+		}
+		shuffledlist = new ArrayList(list);
+		Collections.shuffle(shuffledlist);
+		System.out.println("a new key has been generated ");
+		try {
+			Thread.sleep(1500);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	private static void setkey() {
+          // check if unieq and 95 long
+		System.out.println("input your key");
+		scr.nextLine();
+		String key = scr.nextLine();
+		if(key.length() != 95) {
+			System.out.println("The Key must be 95 Character and all uniqe");
+			try {
+				Thread.sleep(1500);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return;
+		}
+		boolean[] uniqe = new boolean[127];
+		for(int i = 0; i<95; i++) {
+			if(uniqe[key.charAt(i)]) {
+				System.out.println("The Key must be 95 Character and all uniqe");
+				try {
+					Thread.sleep(1500);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				return;
+			}
+			uniqe[key.charAt(i)] = true;
+		}
+		shuffledlist = new ArrayList<Character>();
+		for(Character x :  key.toCharArray()) {
+			shuffledlist.add(x);
+		}
+		System.out.println("The key has been set Successfully");
+		try {
+			Thread.sleep(1500);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	private static void Decryption() {
+		try {
+			if(shuffledlist.isEmpty()) {
+
+			}
+		} catch (Exception e) {
+			System.out.println("There is no key a set key first!!");
+			try {
+				Thread.sleep(1500);
+			} catch (InterruptedException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			return;
+		}
+		System.out.println("Input a String");
+		scr.nextLine();
+		String string = scr.nextLine();
+		while(string.isEmpty()) {
+			
+			string = scr.nextLine();
+		}
+		int mulityplayier = (shuffledlist.indexOf('O')+shuffledlist.indexOf('f')+shuffledlist.indexOf('S')+shuffledlist.indexOf('h'))/4;
+		mulityplayier = (mulityplayier<32)?  (mulityplayier+32):  mulityplayier;
+		int start = shuffledlist.indexOf((char)mulityplayier);
+		int bug = (shuffledlist.indexOf('A') == 0) ? 1 : shuffledlist.indexOf('A');
+		int devider = shuffledlist.get((start+mulityplayier)%bug);
+		int plus = Math.min(Math.min(start, devider), mulityplayier);
+		int extra = (mulityplayier+start+devider+plus)/3;
+		char [] massage = string.toCharArray();
+		String fin = "";
+		for(int i = 0; i<massage.length; i++) {
+			if(list.indexOf(massage[i])== -1) {
+				fin+= massage[i];
+				continue;
+				}
+			start = (((start*mulityplayier)%devider)+ plus)%extra ;
+			int geet = shuffledlist.indexOf(massage[i])-start;
+			geet = (geet<0)? geet+95: geet;
+		
+			fin+= shuffledlist.get(geet%95);
+			
+		}
+
+	System.out.println(fin);
+try {
+	Thread.sleep(1500);
+} catch (InterruptedException e) {
+	// TODO Auto-generated catch block
+	e.printStackTrace();
+}
+
+	}
+
+	private static void Encrypt() {
+		try {
+			if(shuffledlist.isEmpty()) {
+
+			}
+		} catch (Exception e) {
+			System.out.println("There is no key a set key first!!");
+			try {
+				Thread.sleep(1500);
+			} catch (InterruptedException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			return;
+		}
+		System.out.println("Input a String");
+		scr.nextLine();
+		String string = scr.nextLine();
+		while(string.isEmpty()) {
+			
+			string = scr.nextLine();
+		}
+		int mulityplayier = (shuffledlist.indexOf('O')+shuffledlist.indexOf('f')+shuffledlist.indexOf('S')+shuffledlist.indexOf('h'))/4;
+		mulityplayier = (mulityplayier<32)?  (mulityplayier+32):  mulityplayier;
+		int start = shuffledlist.indexOf((char)mulityplayier);
+		int bug = (shuffledlist.indexOf('A') == 0) ? 1 : shuffledlist.indexOf('A');
+		int devider = shuffledlist.get((start+mulityplayier)%bug);
+		int plus = Math.min(Math.min(start, devider), mulityplayier);
+		int extra = (mulityplayier+start+devider+plus)/3;
+		char [] massage = string.toCharArray();
+		String fin = "";
+		for(int i = 0; i<massage.length; i++) {
+			if(list.indexOf(massage[i])== -1) {
+				fin+= massage[i];
+				continue;
+				}
+			start = (((start*mulityplayier)%devider)+ plus)%extra ;
+			int geet = shuffledlist.indexOf(massage[i])+start;
+			fin+= shuffledlist.get(geet%95);
+			
+		}
+
+	System.out.println(fin);
+try {
+	Thread.sleep(1500);
+} catch (InterruptedException e) {
+	// TODO Auto-generated catch block
+	e.printStackTrace();
+}
+	}
+
+	private static void getkey() {
+		try {
+			if(shuffledlist.isEmpty()) {
+
+			}
+		} catch (Exception e) {
+			System.out.println("There is no key a set key first!!");
+			try {
+				Thread.sleep(1500);
+			} catch (InterruptedException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			return;
+		}
+		System.out.println("Do not Share This key With any one !!");
+		for(Character x : shuffledlist) {
+			System.out.print(x);
+		}
+		System.out.println();
+		try {
+			Thread.sleep(1500);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+}
